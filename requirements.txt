@@ -15,10 +15,7 @@ pylint-pytest==1.1.8
 pytest==8.2.0
 pytest-cov==5.0.0
 python-dateutil==2.9.0.post0
-<<<<<<< HEAD
-=======
 python-dotenv==1.0.1
->>>>>>> part2
 pytz==2024.2
 six==1.16.0
 tomlkit==0.13.2
