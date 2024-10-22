@@ -1,4 +1,6 @@
 '''Calculator Operations'''
+import logging
+
 class Operations:
     def __init__(self):
         self.result= [] #storing the results
@@ -24,7 +26,7 @@ class Operations:
             self.result.append({"Operation": "division", "result": result}) #stores division result
             return result
         except ValueError as e:
-            print(f"Error: {e}")
+            logging.error(F"Error: {e}")
 
     
     def multiply(self, num1, num2):
