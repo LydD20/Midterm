@@ -16,12 +16,13 @@ def test_subtract(operations, a, b):
     assert result == a-b
 
 def test_divide(operations, a, b):
-    '''checks division operation'''
-    try:
-        result = operations.divide(a,b)
-        assert result == a/b
-    except ValueError as e:
-        assert str(e) == "Cannot divide by zero"
+    '''Checks division operation'''
+    if b == 0:
+        with pytest.raises(ValueError, match="Division by zero is not allowed"):
+            operations.divide(a, b)
+    else:
+        result = operations.divide(a, b)
+        assert result == a / b
 
 def test_multiply(operations, a, b):
     '''checks multiplying operation'''
