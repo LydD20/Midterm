@@ -10,7 +10,7 @@ class Manage_Command:
         self.operations= Operations
 
         self.operation_map= {
-            "add": self.operations.subtract,
+            "add": self.operations.add,
             "subtract": self.operations.subtract,
             "divide": self.operations.divide,
             "multiply": self.operations.multiply
