@@ -9,19 +9,19 @@ class Manage_History:
         # defined columns for CSV
         self.columns = ['index', 'name', 'operation', 'result']
 
-    def _file_existence(self):
+    def _file_exists(self):
         '''see if histoty file exists and isn't empty'''
         return os.path.exists(self.filename) and os.path.getsize(self.filename) >0
     
     def _initialize_file(self):
         '''initialize file with empty line if it doesn't exist'''
-        if not self._file_existence():
+        if not self._file_exists():
             with open(self.filename, mode='w') as file:
                 file.write('\n')
     
     def _load_data(self):
         '''load CSV into a dataframe'''
-        if self._file_existence():
+        if self._file_exists():
             try:
                 return pd.read_csv(self.filename)
             except pd.errors.EmptyDataError:
