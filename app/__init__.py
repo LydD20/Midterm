@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from dotenv import load_dotenv
 from app.plugins import Manage_Command
+import sys
 
 # Load environment variables
 load_dotenv()
@@ -88,7 +89,7 @@ class App:
         }
 
         while True:
-            command = self._get_input("Enter a command (add, subtract, divide, multiple, save, load, delete, clear, exit): ").lower()
+            command = self._get_input("Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ").lower()
             if command in ["add", "subtract", "multiply", "divide"]:
                 commands[command](command)
             elif command in commands:
@@ -99,6 +100,7 @@ class App:
     def _log_and_exit(self, command, name=None):
         '''Log for exiting'''
         logging.info(f"{command} command received. Exiting application.")
+        sys.exit()
 
     def _handle_operation(self, command, name=None):
         '''Perform operation based on command.'''
@@ -135,7 +137,7 @@ class App:
             except ValueError:
                 logging.error("Invalid input for number.")
                 print("Error: Must insert valid number.")
-                
+
     def _save_history(self, command, name):
         '''Save the result to history.'''
         if self.last_result is not None:
