@@ -1,19 +1,20 @@
 import pytest
 from app.plugins.operations import Operations
 
+@pytest.fixture
 def operations():
-    '''runs Operations'''
-    return Operations() #created function to limit repetition
+    '''Fixture to provide an instance of Operations'''
+    return Operations()  # Fixture provides an instance of Operations
 
 def test_add(operations, a, b):
     '''checks addition operation'''
-    result= operations.add
-    assert result == a+b
+    result = operations.add(a, b)  # Call the method with a and b
+    assert result == a + b
 
 def test_subtract(operations, a, b):
     '''checks subtraction operation'''
-    result = operations.subtract(a,b)
-    assert result == a-b
+    result = operations.subtract(a, b)  # Call the method with a and b
+    assert result == a - b
 
 def test_divide(operations, a, b):
     '''Checks division operation'''
@@ -26,7 +27,5 @@ def test_divide(operations, a, b):
 
 def test_multiply(operations, a, b):
     '''checks multiplying operation'''
-    result = operations.multiply(a, b)
+    result = operations.multiply(a, b)  # Call the method with a and b
     assert result == a * b
-    
-    
