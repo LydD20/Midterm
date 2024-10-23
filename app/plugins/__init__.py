@@ -6,6 +6,9 @@ class Manage_Command:
         '''Intializes the class Manage_Command with Plugins'''
         self.manage_history = Manage_History(history_file)
 
+        # Initialize operations
+        self.operations= Operations
+
         self.operation_map= {
             "add": self.operations.subtract,
             "subtract": self.operations.subtract,
