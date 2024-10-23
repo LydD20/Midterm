@@ -19,7 +19,7 @@ class Manage_History:
             with open(self.filename, mode='w') as file:
                 file.write('\n')
     
-    def _loading_data(self):
+    def _load_data(self):
         '''load CSV into a dataframe'''
         if self._file_existence():
             try:
