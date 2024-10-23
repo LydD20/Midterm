@@ -3,13 +3,13 @@ from app.plugins.operations import Operations
 
 class Manage_Command:
     def __init__(self, history_file="data/balance.csv"):
-        '''Intializes the class Manage_Command with Plugins'''
+        '''Initializes the class Manage_Command with Plugins'''
         self.manage_history = Manage_History(history_file)
 
-        # Initialize operations
-        self.operations= Operations
+        # Initialize operations as an instance of the Operations class
+        self.operations = Operations()
 
-        self.operation_map= {
+        self.operation_map = {
             "add": self.operations.add,
             "subtract": self.operations.subtract,
             "divide": self.operations.divide,
@@ -22,10 +22,10 @@ class Manage_Command:
 
         # Checks to ensure two arguments are passed
         if len(args) != 2:
-            raise ValueError(f"{operation_name} operation requires exactly two argument, but {len(args)} were provided.")
+            raise ValueError(f"{operation_name} operation requires exactly two arguments, but {len(args)} were provided.")
 
         if operation:
-            return operation(*args)
+            return operation(*args)  # Call the operation with the provided arguments
         raise ValueError(f"Unknown mathematical operation: {operation_name}")
     
     def save_history(self, data):
