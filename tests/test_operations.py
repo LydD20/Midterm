@@ -7,26 +7,26 @@ def operations():
     '''Fixture to provide an instance of Operations'''
     return Operations()  # Fixture provides an instance of Operations
 
-def test_add(operations, a, b):
+def test_add(operations, first_number, second_number):
     '''checks addition operation'''
-    result = operations.add(a, b)  # Call the method with a and b
-    assert result == a + b
+    result = operations.add(first_number, second_number)  # Call the method with 1st and 2nd number
+    assert result == first_number + second_number
 
-def test_subtract(operations, a, b):
+def test_subtract(operations, first_number, second_number):
     '''checks subtraction operation'''
-    result = operations.subtract(a, b)  # Call the method with a and b
-    assert result == a - b
+    result = operations.subtract(first_number, second_number)  # Call the method with 1st and 2nd number
+    assert result == first_number - second_number
 
-def test_divide(operations, a, b):
+def test_divide(operations, first_number, second_number):
     '''Checks division operation'''
-    if b == 0:
+    if second_number == 0:
         with pytest.raises(ValueError, match="Division by zero is not allowed"):
-            operations.divide(a, b)
+            operations.divide(first_number, second_number)
     else:
-        result = operations.divide(a, b)
-        assert result == a / b
+        result = operations.divide(first_number, second_number)
+        assert result == first_number / second_number
 
-def test_multiply(operations, a, b):
+def test_multiply(operations, first_number, second_number):
     '''checks multiplying operation'''
-    result = operations.multiply(a, b)  # Call the method with a and b
-    assert result == a * b
+    result = operations.multiply(first_number, second_number)  # Call the method with 1st and 2nd number
+    assert result == first_number * second_number
