@@ -1,3 +1,4 @@
+'''Test for Operations'''
 import pytest
 from app.plugins.operations import Operations
 
