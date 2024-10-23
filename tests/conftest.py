@@ -3,6 +3,7 @@ import os
 import logging
 from faker import Faker
 import pytest
+from app.plugins.operations import Operations
 
 fake = Faker()
 
@@ -25,6 +26,11 @@ def rand_numbers():
         b = fake.random_int(min=1, max=100)
         data.append((a, b))
     return data
+
+@pytest.fixture
+def operations():
+    '''Fixture to provide an instance of the Operations class'''
+    return Operations()
 
 @pytest.fixture
 def records_num(pytestconfig):
