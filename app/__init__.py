@@ -35,19 +35,32 @@ class App:
         
         self._initialize_history_file()
         logging.info("Intialized App.")
+    
+
+    def _initialize_csv_with_headers(self):
+        '''Creates an empty CSV file with headers.'''
+        # Ensure the directory exists before creating the file
+        directory = os.path.dirname(self.history_file)
+        if not os.path.exists(directory):
+            os.makedirs(directory)  # Create the directory if it doesn't exist
+
+        # Define the headers for the CSV file
+        headers = ['index', 'name', 'operation', 'result']
+        
+        # Create a DataFrame with the headers
+        df = pd.DataFrame(columns=headers)
+        
+        # Write the DataFrame to the CSV file
+        df.to_csv(self.history_file, index=False)
+        
+        # Log and print that the CSV has been initialized
+        logging.info("CSV initialized with headers: %s", headers)
+        print("Initialized CSV with headers.")
 
     def _initialize_history_file(self):
         '''Initializes history CSV file if it doesn't exist'''
         if not os.path.exists(self.history_file) or os.path.getsize(self.history_file) == 0:
             self._initialize_csv_with_headers()
-
-    def _initialize_csv_with_headers(self):
-        '''Creates an empty CSV file with headers.'''
-        headers = ['index', 'name', 'operation', 'result']
-        df = pd.DataFrame(columns=headers)
-        df.to_csv(self.history_file, index=False)
-        logging.info("CSV initialized with headers: %s", headers)
-        print("Intialized csv with headers.")
 
     def start(self):
         '''Start the application loop.'''
