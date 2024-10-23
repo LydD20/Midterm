@@ -19,10 +19,10 @@ def setup_data_directory():
 def rand_numbers():
     '''creates random list of numbers 1 through 100'''
     num_records = 10
-    data= []
+    data = []
     for _ in range(num_records):
-        a= fake.random_int(min=1, max=100)
-        b= fake.random_int(min=1, max=100)
+        a = fake.random_int(min=1, max=100)
+        b = fake.random_int(min=1, max=100)
         data.append((a, b))
     return data
 
@@ -31,7 +31,7 @@ def records_num(pytestconfig):
     '''fixture to retrieve records_num value from command line'''
     return pytestconfig.getoption("records_num")
 
-def create_test_data(num_records):
+def generate_test_data(num_records):
     '''creates test data'''
     for _ in range(num_records):
         a = fake.random_int(min=1, max=100)
@@ -40,11 +40,11 @@ def create_test_data(num_records):
 
 def pytest_addoption(parser):
     '''Adds pytest command line options'''
-    parser.addoption("--records_num", action="store", default=5, type=int, help= "This is how many test records to create of test records.")
+    parser.addoption("--records_num", action="store", default=5, type=int, help="How many test records to create.")
 
-def pytest_create_tests(metafunc):
+def pytest_generate_tests(metafunc):
     '''Creates tests based on fixture'''
     if {"a", "b"}.issubset(metafunc.fixturenames):
         num_records = metafunc.config.getoption("records_num")
-        test_data= create_test_data("records_num")
+        test_data = generate_test_data(num_records)  # Use num_records, not "records_num"
         metafunc.parametrize("a,b", test_data)
