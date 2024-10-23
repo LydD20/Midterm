@@ -19,6 +19,11 @@ class Manage_Command:
     def execute_operation(self, operation_name, *args):
         '''Executes math operation and returns result'''
         operation = self.operation_map.get(operation_name)
+
+        # Checks to ensure two arguments are passed
+        if len(args) != 2:
+            raise ValueError(f"{operation_name} operation requires exactly two argument, but {len(args)} were provided.")
+
         if operation:
             return operation(*args)
         raise ValueError(f"Unknown mathematical operation: {operation_name}")
