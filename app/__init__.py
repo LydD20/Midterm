@@ -89,10 +89,12 @@ class App:
 
         while True:
             command = self._get_input("Enter a command (add, subtract, divide, multiple, save, load, delete, clear, exit): ").lower()
-            if command in commands:
+            if command in ["add", "subtract", "multiply", "divide"]:
+                commands[command](command)
+            elif command in commands:
                 commands[command](command, name)
             else:
-                print("Error. Invalid command. Try again.")
+                logging.error(f"Error: Invalid command '{command}' entered. Try again.")
 
     def _log_and_exit(self, command, name=None):
         '''Log for exiting'''
@@ -105,12 +107,13 @@ class App:
         result = self._execute_command(command, num1, num2)
         if result is not None:
             self.last_result = result
+            logging.info(f"Result of {command}: {result}")
             print(f"Result: {result}")
 
     def _get_two_numbers(self):
         '''Get two numbers from the user for an operation.'''
-        num1 = self._get_number("Insert first number: ")
-        num2 = self._get_number("Insert second number: ")
+        num1 = float(self._get_number("Insert first number: "))
+        num2 = float(self._get_number("Insert second number: "))
         return num1, num2
 
     def _execute_command(self, command, num1, num2):
@@ -126,13 +129,13 @@ class App:
 
     def _get_number(self, prompt):
         '''Get a number input from the user.'''
-        try:
-            return float(self._get_input(prompt))
-        except ValueError:
-            logging.error("Invalid input for number.")
-            print("Error: Must insert valid number.")
-            return self._get_number(prompt)
-
+        while True:
+            try:
+                return float(self._get_input(prompt))
+            except ValueError:
+                logging.error("Invalid input for number.")
+                print("Error: Must insert valid number.")
+                
     def _save_history(self, command, name):
         '''Save the result to history.'''
         if self.last_result is not None:
