@@ -43,3 +43,15 @@ class Manage_Command:
     def clear_history(self):
         '''Clears history'''
         self.manage_history.clear()
+
+        # Static method: checks if the operation name is valid
+    @staticmethod
+    def is_valid_operation(operation_name):
+        '''Check if the given operation name is valid'''
+        return operation_name in ["add", "subtract", "divide", "multiply"]
+
+    # Class method: return all available operations
+    @classmethod
+    def available_operations(cls):
+        '''Returns a list of available operations'''
+        return ["add", "subtract", "divide", "multiply"]
