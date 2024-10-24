@@ -11,13 +11,13 @@ class Manage_History:
     def _file_exists(self):
         '''Check if history file exists and isn't empty'''
         return os.path.exists(self.filename) and os.path.getsize(self.filename) > 0
-    
+
     def _initialize_file(self):
-        '''Initialize file with an empty line if it doesn't exist'''
+        '''Initialize file with an empty DataFrame if it doesn't exist'''
         if not self._file_exists():
-            with open(self.filename, mode='w') as file:
-                file.write('\n')
-    
+            df = pd.DataFrame(columns=self.columns)
+            df.to_csv(self.filename, index=False)
+
     def _load_data(self):
         '''Load CSV into a DataFrame'''
         if self._file_exists():
@@ -29,26 +29,21 @@ class Manage_History:
 
     def save(self, data):
         '''Saves results to CSV'''
-        # Convert the data to a DataFrame
         df = pd.DataFrame([data], columns=self.columns)
-    
-        self._initialize_file()
-        
-        # Check if file exists, and write the header only if the file is new 
-        header_needed = not self._file_exists()
-        
-        # Append to the file, and write header only if it's the first write
-        df.to_csv(self.filename, mode='a', index=False, header=header_needed)
-        
-        logging.info(f"Data saved to {self.filename}: {data}")
 
+        self._initialize_file()
+
+        # Append to the file, and write the header only if it's the first write
+        df.to_csv(self.filename, mode='a', index=False, header=False)
+
+        logging.info(f"Data saved to {self.filename}: {data}")
 
     def load(self):
         '''Load history from CSV'''
         df = self._load_data()
         logging.info(f"Data loaded from {self.filename}: {df}")
         return df
-    
+
     def delete(self, index):
         '''Delete a specific entry from history'''
         df = self._load_data()
