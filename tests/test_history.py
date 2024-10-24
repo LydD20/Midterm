@@ -1,8 +1,7 @@
 '''Test History'''
-'''Test History'''
+import pytest
 from faker import Faker
 from app.plugins.history import Manage_History
-import pytest
 
 fake = Faker()
 
@@ -22,7 +21,7 @@ def assert_history_entry(loaded_history, entry_index, expected_data):
     row = loaded_history.iloc[entry_index]
     assert row['name'] == expected_data['name']
     assert row['operation'] == expected_data['operation']
-    assert int(row['result']) == expected_data['result']  # Casting to ensure comparison
+    assert int(row['result']) == expected_data['result']
 
 def test_add_one_entry(manage_history):
     '''Test adding one entry to history'''
@@ -83,7 +82,7 @@ def test_remove_nonexistent_entry(manage_history):
         'result': fake.random_number(digits=3)
     }
     manage_history.save(entry)
-    
+
     manage_history.delete(5)
     loaded_history = manage_history.load()
 
