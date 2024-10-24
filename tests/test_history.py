@@ -86,7 +86,7 @@ def test_remove_nonexistent_entry(manage_history):
     manage_history.delete(5)
     loaded_history = manage_history.load()
 
-    assert len(loaded_history) == 1 
+    assert len(loaded_history) == 1
 
 def test_clear_all_entries(manage_history):
     '''Tests clearing all entries from history'''
