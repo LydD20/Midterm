@@ -15,7 +15,6 @@ class Manage_History:
     def _load_data(self):
         '''Load CSV into a DataFrame'''
         if not self._file_exists():
-            # Instead of raising FileNotFoundError, return an empty DataFrame
             logging.info(f"File {self.filename} does not exist, returning an empty DataFrame.")
             return pd.DataFrame(columns=self.columns)
 
