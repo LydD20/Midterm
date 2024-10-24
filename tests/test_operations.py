@@ -42,3 +42,31 @@ def test_multiply(operations, random_numbers):
     a, b = random_numbers
     result = operations.multiply(a, b)
     assert result == a * b
+
+# Additional tests for edge cases
+
+def test_operations_add_with_zero(operations):
+    '''Test adding zero to a number'''
+    assert operations.add(5, 0) == 5
+    assert operations.add(0, 0) == 0
+
+def test_operations_subtract_with_zero(operations):
+    '''Test subtracting zero from a number'''
+    assert operations.subtract(5, 0) == 5
+    assert operations.subtract(0, 5) == -5
+
+def test_operations_divide_with_zero(operations):
+    '''Test that dividing by zero raises ValueError'''
+    with pytest.raises(ValueError, match="Division by zero is not allowed"):
+        operations.divide(10, 0)
+
+def test_operations_divide_zero_by_number(operations):
+    '''Test dividing zero by a number'''
+    assert operations.divide(0, 5) == 0
+
+def test_operations_with_negative_numbers(operations):
+    '''Test operations with negative numbers'''
+    assert operations.add(-5, -10) == -15
+    assert operations.subtract(-5, -10) == 5
+    assert operations.multiply(-5, -10) == 50
+    assert operations.divide(-10, -2) == 5
