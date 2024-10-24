@@ -8,7 +8,7 @@ fake = Faker()
 @pytest.fixture
 def manage_command_fix():
     '''Fixture for Managing Command'''
-    return Manage_Command()  # Correctly instantiate the class
+    return Manage_Command()  # Initiates the class
 
 # Apply parametrize decorator to test plugins
 @pytest.mark.parametrize("operation_name, expected_result", [
