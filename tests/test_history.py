@@ -1,4 +1,5 @@
 '''Test History'''
+'''Test History'''
 from faker import Faker
 from app.plugins.history import Manage_History
 import pytest
@@ -18,9 +19,10 @@ def add_multiple_entries(manager, entries):
 
 def assert_history_entry(loaded_history, entry_index, expected_data):
     '''Helper function to assert history entry matches expected data'''
-    assert loaded_history.iloc[entry_index]['name'] == expected_data['name']
-    assert loaded_history.iloc[entry_index]['operation'] == expected_data['operation']
-    assert loaded_history.iloc[entry_index]['result'] == expected_data['result']
+    row = loaded_history.iloc[entry_index]
+    assert row['name'] == expected_data['name']
+    assert row['operation'] == expected_data['operation']
+    assert int(row['result']) == expected_data['result']  # Casting to ensure comparison
 
 def test_add_one_entry(manage_history):
     '''Test adding one entry to history'''
@@ -32,8 +34,6 @@ def test_add_one_entry(manage_history):
     }
     manage_history.save(entry_data)
     loaded_history = manage_history.load()
-    print(loaded_history)  # Debugging: Print the loaded history
-
 
     assert len(loaded_history) == 1
     assert_history_entry(loaded_history, 0, entry_data)
@@ -70,7 +70,6 @@ def test_remove_entry(manage_history):
 
     manage_history.delete(0)  # Removes the first entry
     loaded_history = manage_history.load()
-    print(loaded_history)  # Debugging: Print the loaded history after deletion
 
     assert len(loaded_history) == 1  # Should contain only 1 entry after deletion
     assert_history_entry(loaded_history, 0, entry2)
