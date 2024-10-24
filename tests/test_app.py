@@ -8,17 +8,17 @@ from app import App
 def app():
     '''Fixture to create an instance of the App class'''
     with patch("app.App._initialize_history_file") as mock_init:
-        yield App(), mock_init  # Yield an instance of App and the mock
+        yield App(), mock_init  # Yields an instance of App and the mock
 
 def test_initialize_csv_with_headers(app):
     '''Test if CSV is initialized with headers'''
     _, mock_init_history_file = app  # Unpack the fixture, ignore app_instance
-    mock_init_history_file.assert_called_once()  # Verify it was called only once
+    mock_init_history_file.assert_called_once()  # Verifies it was called only once
 
 def test_initialize_history_file_called_once(app):
     '''Ensure _initialize_history_file is called only once'''
     _, mock_init_history_file = app
-    assert mock_init_history_file.call_count == 1  # Ensure it has been called once
+    assert mock_init_history_file.call_count == 1  # Ensures it has been called once
 
 def test_command_loop_with_invalid_command(app):
     '''Test handling of an invalid command'''
@@ -34,12 +34,12 @@ def test_command_loop_with_valid_commands(app):
         with patch("app.App._handle_operation") as mock_handle_operation:
             with pytest.raises(SystemExit):  # Check that it exits when "exit" is called
                 app_instance._command_loop("Test User")  # pylint: disable=protected-access
-            assert mock_handle_operation.called  # Ensure the operation was called
+            assert mock_handle_operation.called
 
 def test_save_history_no_result(app):
     '''Test saving history when there is no result'''
     app_instance, _ = app  # Unpack the fixture
-    app_instance.last_result = None  # Set last_result to None
+    app_instance.last_result = None
     with patch("app.logging.warning") as mock_logging:
         app_instance._save_history("save", "Test User")  # pylint: disable=protected-access
         assert "No result to save." in [call[0][0] for call in mock_logging.call_args_list]  # Check warning logged
@@ -74,7 +74,7 @@ def test_get_user_name(app):
     app_instance, _ = app  # Unpack the fixture
     with patch("builtins.input", return_value="Test User"):
         name = app_instance._get_user_name()  # pylint: disable=protected-access
-        assert name == "Test User"  # Ensure the name is correctly returned
+        assert name == "Test User"  # Ensures the name is correctly returned
 
 def test_execute_command_with_error(app):
     '''Test executing a command that raises a ValueError'''
@@ -109,15 +109,15 @@ def test_clear_history(app):
 
     with patch("app.logging.info") as mock_logging:
         app_instance._clear_history()  # pylint: disable=protected-access
-        app_instance.command_handler.clear_history.assert_called_once()  # Ensure the command handler's clear_history method was called
-        assert "History cleared." in [call[0][0] for call in mock_logging.call_args_list]  # Ensure log entry is correct
+        app_instance.command_handler.clear_history.assert_called_once()  # Ensures the command handler's clear_history method was called
+        assert "History cleared." in [call[0][0] for call in mock_logging.call_args_list]  # Ensures log entry is correct
 
 def test_log_and_exit(app):
     '''Test logging and exiting the application'''
     app_instance, _ = app  # Unpack the fixture
     with patch("sys.exit") as mock_exit:
         app_instance._log_and_exit("exit")  # pylint: disable=protected-access
-        mock_exit.assert_called_once()  # Ensure sys.exit was called
+        mock_exit.assert_called_once()  # Ensures sys.exit was called
 
 # Run all tests when executing this file
 if __name__ == "__main__":
