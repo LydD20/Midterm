@@ -1,3 +1,4 @@
+'''Class App Code'''
 import logging
 import os
 import pandas as pd
@@ -33,10 +34,22 @@ class App:
         self.command_handler = Manage_Command()
         self.last_result = None
         self.history_file = HISTORY_LOCATION
-        
+        self.history_initialized = False  # Initialization flag
+
         self._initialize_history_file()
-        logging.info("Intialized App.")
-    
+        logging.info("Initialized App.")
+
+    def _initialize_history_file(self):
+        '''Initializes history CSV file if it doesn't exist'''
+        if not self.history_initialized:  # Only initialize if not done already
+            logging.info("Checking if history file needs initialization.")
+            if not os.path.exists(self.history_file) or os.path.getsize(self.history_file) == 0:
+                logging.info("Initializing history file.")
+                self._initialize_csv_with_headers()  # Ensure we only call this when the file is missing or empty
+            else:
+                logging.info("History file already exists and is not empty.")
+            self.history_initialized = True  # Set the flag after initialization
+
 
     def _initialize_csv_with_headers(self):
         '''Creates an empty CSV file with headers.'''
@@ -57,11 +70,6 @@ class App:
         # Log and print that the CSV has been initialized
         logging.info("CSV initialized with headers: %s", headers)
         print("Initialized CSV with headers.")
-
-    def _initialize_history_file(self):
-        '''Initializes history CSV file if it doesn't exist'''
-        if not os.path.exists(self.history_file) or os.path.getsize(self.history_file) == 0:
-            self._initialize_csv_with_headers()
 
     def start(self):
         '''Start the application loop.'''
@@ -105,12 +113,16 @@ class App:
     def _handle_operation(self, command, name=None):
         '''Perform operation based on command.'''
         logging.info(f"Performing operation: {command}")
-        num1, num2 = self._get_two_numbers()
-        result = self._execute_command(command, num1, num2)
-        if result is not None:
-            self.last_result = result
-            logging.info(f"Result of {command}: {result}")
-            print(f"Result: {result}")
+        try:
+            num1, num2 = self._get_two_numbers()  # This may raise ValueError
+            result = self._execute_command(command, num1, num2)
+            if result is not None:
+                self.last_result = result
+                logging.info(f"Result of {command}: {result}")
+                print(f"Result: {result}")
+        except ValueError:
+            logging.error("Invalid input. Insert valid numbers.")
+
 
     def _get_two_numbers(self):
         '''Get two numbers from the user for an operation.'''
