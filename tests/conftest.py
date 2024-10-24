@@ -15,7 +15,7 @@ def setup_data_directory():
         logging.info("Data directory created.")
     else:
         logging.info("Data directory already exists.")
-    
+
 @pytest.fixture
 def rand_numbers():
     '''creates random list of numbers 1 through 100'''
