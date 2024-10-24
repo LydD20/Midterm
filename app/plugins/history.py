@@ -28,11 +28,20 @@ class Manage_History:
         return pd.DataFrame(columns=self.columns)
 
     def save(self, data):
-        '''Save result to CSV'''
+        '''Saves results to CSV'''
+        # Convert the data to a DataFrame
         df = pd.DataFrame([data], columns=self.columns)
+    
         self._initialize_file()
-        df.to_csv(self.filename, mode='a', index=False, header=not self._file_exists())
+        
+        # Check if file exists, and write the header only if the file is new 
+        header_needed = not self._file_exists()
+        
+        # Append to the file, and write header only if it's the first write
+        df.to_csv(self.filename, mode='a', index=False, header=header_needed)
+        
         logging.info(f"Data saved to {self.filename}: {data}")
+
 
     def load(self):
         '''Load history from CSV'''
