@@ -101,3 +101,35 @@ def test_clear_all_entries(manage_history):
     loaded_history = manage_history.load()
 
     assert loaded_history.empty  # Should be empty after clearing
+
+# Additional tests for error handling
+
+def test_load_history_file_not_exist(manage_history):
+    '''Test loading history from a non-existent file'''
+    manage_history.filename = "non_existent_file.csv"
+    with pytest.raises(FileNotFoundError):
+        manage_history.load()
+
+def test_save_history_to_readonly_file(tmp_path):
+    '''Test saving history to a read-only file'''
+    readonly_file = tmp_path / "readonly.csv"
+    readonly_file.touch(0o444)  # Set file as read-only
+    manage_history = Manage_History(readonly_file)
+    
+    with pytest.raises(PermissionError):
+        manage_history.save({
+            'index': 1,
+            'name': fake.name(),
+            'operation': 'add',
+            'result': fake.random_number(digits=3)
+        })
+
+def test_delete_nonexistent_entry(manage_history):
+    '''Test deleting an entry that does not exist'''
+    entry = {'index': 1, 'name': fake.name(), 'operation': 'add', 'result': fake.random_number(digits=3)}
+    manage_history.save(entry)
+    manage_history.delete(5)  # Trying to delete non-existent entry
+    loaded_history = manage_history.load()
+    
+    assert len(loaded_history) == 1  # No deletion should happen
+
