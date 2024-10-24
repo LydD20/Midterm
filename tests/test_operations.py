@@ -8,33 +8,37 @@ fake = Faker()
 @pytest.fixture
 def operations():
     '''Fixture to provide an instance of Operations'''
-    return Operations()  # Fixture provides an instance of Operations
+    return Operations()
 
-# Parametrize with 5 random pairs of integers (a, b) for testing
-@pytest.mark.parametrize("a, b", [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(5)])
-def test_add(operations, a, b):
+@pytest.fixture
+def random_numbers():
+    '''Fixture to provide random numbers'''
+    return fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)
+
+def test_add(operations, random_numbers):
     '''checks addition operation with random numbers'''
+    a, b = random_numbers
     result = operations.add(a, b)
     assert result == a + b
 
-@pytest.mark.parametrize("a, b", [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(5)])
-def test_subtract(operations, a, b):
+def test_subtract(operations, random_numbers):
     '''checks subtraction operation with random numbers'''
+    a, b = random_numbers
     result = operations.subtract(a, b)
     assert result == a - b
 
-@pytest.mark.parametrize("a, b", [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(5)])
-def test_divide(operations, a, b):
+def test_divide(operations, random_numbers):
     '''Checks division operation with random numbers'''
-    if b == 0:  # To handle division by zero case
+    a, b = random_numbers
+    if b == 0:
         with pytest.raises(ValueError, match="Division by zero is not allowed"):
             operations.divide(a, b)
     else:
         result = operations.divide(a, b)
         assert result == a / b
 
-@pytest.mark.parametrize("a, b", [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(5)])
-def test_multiply(operations, a, b):
+def test_multiply(operations, random_numbers):
     '''checks multiplying operation with random numbers'''
+    a, b = random_numbers
     result = operations.multiply(a, b)
     assert result == a * b
