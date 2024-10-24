@@ -62,3 +62,8 @@ class Manage_History:
             logging.info(f"History cleared: {self.filename}")
         else:
             logging.info(f"File {self.filename} does not exist.")
+
+    @staticmethod
+    def is_valid_filename(filename):
+        '''Checks if a filename is valid'''
+        return isinstance(filename, str) and filename.endswith('.csv')
