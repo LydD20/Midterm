@@ -3,7 +3,7 @@ import logging
 import os
 import pandas as pd
 from dotenv import load_dotenv
-from app.plugins import Manage_Command
+from app.plugins import Manage_Command, operations
 import sys
 
 # Load environment variables
