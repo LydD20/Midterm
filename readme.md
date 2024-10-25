@@ -116,7 +116,7 @@ Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exi
 ### Command Pattern
 The ** Command Pattern ** is used throught the design of this application. Each operation was treated as a command and incorporated through the Manage_Command class, which is the initiator, and the Operations class, which acts to provide the implementations for the commands. The application is also extremely flexible if more operations were added, specifically because of the operation_map in Manage_Command. 
 ### Facade Pattern
-The ** Facade Pattern ** is used in managing the history, specifically the class Manage_History. It provides a simplified interface for the history operations. It also manages file operations, to make sure the CSV file is correctly loaded and updated. This helps to hide the complexity of file handling while ensuring the rest of the application functions correctl.y 
+The ** Facade Pattern ** is used in managing the history, specifically the class Manage_History. It provides a simplified interface for the history operations. It also manages file operations, to make sure the CSV file is correctly loaded and updated. This helps to hide the complexity of file handling while ensuring the rest of the application functions correctly.
 ### Singleton Pattern
 The Single Pattern is used in the logging configuration with the setup_logger function which ensures only one logger is created during the application's cycle. This same logger is the reused across different modules. This design patterns helps get rid of multiple instances of the logger and ensure all parts of the application are consistent.
 
