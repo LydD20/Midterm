@@ -5,6 +5,12 @@
 ## Project Description
 For this project, I created a console-based calculator application that performs simple operations (addition, subtraction, division, multiplication) and history management (save, load, delete, clear operations). This application was created using Python and implementing design patterns such as facade, command, and factor. To help with debugging, dynamic logging was incorporated into the code.
 
+## Link to Video
+https://youtu.be/cCElG7kmYY4
+
+## Link to Paper
+[Web Systems Midterm Paper.docx](https://github.com/user-attachments/files/17524752/Web.Systems.Midterm.Paper.docx)
+
 ## Setup Instructions
 ### Requirements:
 * Python 3.10+
