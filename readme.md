@@ -46,34 +46,34 @@ python main.py
 # Simple Operations
 After the application starts, it will prompt users to input their name. Then users will choose a simple operation. The operation options are as follows:
 
-1. ** Add Command: **
+1. **Add Command:**
   * Example:
   ```
-  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** add **
+  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **add**
   Insert first number: 3
   Insert second number: 4
   Result: 7
   ```
-2. ** Subtract Command **
+2. **Subtract Command**
   * Example:
   ```
-  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** subtract **
+  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **subtract**
   Insert first number: 4
   Insert second number: 3
   Result: 1
   ```
-3. ** Divide Command **
+3. **Divide Command**
   * Example:
   ```
-  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** divide **
+  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **divide**
   Insert first number: 3
   Insert second number: 4
   Result: 0.75
   ```
-4. ** Multiply Command **
+4. **Multiply Command**
   * Example:
   ```
-  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** multiply **
+  Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **multiply**
   Insert first number: 3
   Insert second number: 4
   Result: 12
@@ -83,12 +83,12 @@ In the application, users can also manage their history of calculations with the
 
 1. Save: this will save the last result to the history file
 ```
-Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  ** save **
+Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  **save**
 History saved.
 ```
 2. Load: this will load all of the past saved operations from the history file
 ```
-Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  ** load **
+Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  **load**
 Loaded history:
  index   name    operation   result
    0     Lydia     add         7
@@ -96,7 +96,7 @@ Loaded history:
 ```
 3. Delete: this will delete the entry from the history file specified by its index.
 ```
-Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  ** delete **
+Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit):  **delete**
 Enter the index of the record to delete: 1
 Loaded history:
  index   name    operation   result
@@ -104,12 +104,12 @@ Loaded history:
 ```
 4. Clear: this will clear all of the entries in the history file.
 ```
-Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** clear **
+Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **clear**
 History cleared.
 ```
 5. Exit: this exits the application
 ```
-Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): ** exit **
+Enter a command (add, subtract, divide, multiply, save, load, delete, clear, exit): **exit**
 ```
 ## Architectural Decisions
 ## Design Patterns
