@@ -13,7 +13,7 @@ For this project, I created a console-based calculator application that performs
 ## Installation:
 1. clone the repository:
 ```
-git clone https://github.com/LydD20/calc_app.git
+git clone https://github.com/LydD20/midterm.git
 cd calc_app
 ```
 2. Set up virtual environment
