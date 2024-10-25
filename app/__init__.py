@@ -34,6 +34,7 @@ class App:
         self.command_handler = Manage_Command()
         self.last_result = None
         self.history_file = HISTORY_LOCATION
+        self.last_operation = None  # Initialize last_operation to None
         self.history_initialized = False  # Initialization flag
 
         self._initialize_history_file()
@@ -89,7 +90,7 @@ class App:
             "subtract": self._handle_operation,
             "multiply": self._handle_operation,
             "divide": self._handle_operation,
-            "save": self._save_history,
+            "save": lambda command, name: self._save_history(command, name),  # Automatically use last_operation
             "load": self._load_history,
             "delete": self._delete_history_entry,
             "clear": self._clear_history,
@@ -104,7 +105,7 @@ class App:
                 commands[command](command, name)
             else:
                 logging.error(f"Error: Invalid command '{command}' entered. Try again.")
-
+    
     def _log_and_exit(self, command, name=None):
         '''Log for exiting'''
         logging.info(f"{command} command received. Exiting application.")
@@ -118,11 +119,11 @@ class App:
             result = self._execute_command(command, num1, num2)
             if result is not None:
                 self.last_result = result
+                self.last_operation = command  # Save the last operation
                 logging.info(f"Result of {command}: {result}")
                 print(f"Result: {result}")
         except ValueError:
             logging.error("Invalid input. Insert valid numbers.")
-
 
     def _get_two_numbers(self):
         '''Get two numbers from the user for an operation.'''
@@ -150,17 +151,19 @@ class App:
                 logging.error("Invalid input for number.")
                 print("Error: Must insert valid number.")
 
-    def _save_history(self, command, name, operation):
+    def _save_history(self, command, name, operation=None):
         '''Save the result to history.'''
         if self.last_result is not None:
             current_history = self.command_handler.load_history()
             new_index = len(current_history)
+        if operation is None:
+            operation = self.last_operation  # Use the last operation if not provided
             self.command_handler.save_history({
                 'index': new_index,  
                 'name': name,
-                'operation': operation,
+                'operation': operation,  # Ensure the operation is saved correctly
                 'result': self.last_result,
-            })
+                })
             logging.info("History saved.")
             print("History saved.")
             self.last_result = None
