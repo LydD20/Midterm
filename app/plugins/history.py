@@ -23,19 +23,14 @@ class Manage_History:
         except pd.errors.EmptyDataError:
             return pd.DataFrame(columns=self.columns)
 
-    def save(self, name, operation, result):
+    def save(self, data):
         '''Saves results to CSV'''
-        data = {
-            'index': len(self.load()),  # Assign the current length of the DataFrame as index
-            'name': name,
-            'operation': operation,
-            'result': result
-        }
-        df = pd.DataFrame([data])
+        df = pd.DataFrame([data], columns=self.columns)
+        
         # Check if file exists and write the header if new
         header_needed = not self._file_exists()
         df.to_csv(self.filename, mode='a', index=False, header=header_needed)
-
+        
         logging.info(f"Data saved to {self.filename}: {data}")
 
     def load(self):
