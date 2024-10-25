@@ -150,7 +150,7 @@ class App:
                 logging.error("Invalid input for number.")
                 print("Error: Must insert valid number.")
 
-    def _save_history(self, command, name):
+    def _save_history(self, command, name, operation):
         '''Save the result to history.'''
         if self.last_result is not None:
             current_history = self.command_handler.load_history()
@@ -158,7 +158,7 @@ class App:
             self.command_handler.save_history({
                 'index': new_index,  
                 'name': name,
-                'operation': "save",
+                'operation': operation,
                 'result': self.last_result,
             })
             logging.info("History saved.")
