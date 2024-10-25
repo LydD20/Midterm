@@ -36,7 +36,7 @@ class Manage_History:
     def load(self):
         '''Load history from CSV'''
         df = self._load_data()
-        logging.info(f"Data loaded from {self.filename}: {df}")
+        # logging.info(f"Data loaded from {self.filename}: {df}")
         return df
     
     def delete(self, index):
