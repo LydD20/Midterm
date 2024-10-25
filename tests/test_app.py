@@ -1,6 +1,6 @@
 '''Test for app''' 
 from unittest.mock import MagicMock, patch
-import pytest  # Third-party import
+import pytest  # Third-party import at the top
 import pandas as pd  # Ensure pandas is imported
 from app import App
 
@@ -36,13 +36,16 @@ def test_command_loop_with_valid_commands(app):
                 app_instance._command_loop("Test User")  # pylint: disable=protected-access
             assert mock_handle_operation.called
 
-def test_save_history_no_result(app):
-    '''Test saving history when there is no result'''
+@pytest.mark.parametrize("operation", ["addition", "subtraction", "multiplication", "division"])
+def test_save_history_no_result(app, operation):
+    '''Test saving history when there is no result for different operations'''
     app_instance, _ = app  # Unpack the fixture
-    app_instance.last_result = None
+    app_instance.last_result = None  # Simulate that no result is available to save
     with patch("app.logging.warning") as mock_logging:
-        app_instance._save_history("save", "Test User")  # pylint: disable=protected-access
-        assert "No result to save." in [call[0][0] for call in mock_logging.call_args_list]  # Check warning logged
+        app_instance._save_history("save", "Test User", operation)  # pylint: disable=protected-access
+        # Assert that the correct warning is logged
+        assert "No result to save." in [call[0][0] for call in mock_logging.call_args_list], \
+            f"Expected 'No result to save.' warning was not logged for operation '{operation}'"
 
 def test_load_history_empty(app):
     '''Test loading history when it is empty'''
