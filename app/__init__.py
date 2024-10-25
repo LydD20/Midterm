@@ -178,7 +178,7 @@ class App:
             logging.info("Cannot locate history.")
             print("History is empty.")
         else:
-            logging.info(f"Loaded history: \n{history}")
+            logging.info(f"Loaded history from file")
             print("Loaded history:\n", history.to_string(index=False))
 
     def _delete_history_entry(self, command=None, name=None):
