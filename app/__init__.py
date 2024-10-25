@@ -34,7 +34,7 @@ class App:
         self.command_handler = Manage_Command()
         self.last_result = None
         self.history_file = HISTORY_LOCATION
-        self.last_operation = None  # Initialize last_operation to None
+        self.last_operation = None  
         self.history_initialized = False  # Initialization flag
 
         self._initialize_history_file()
@@ -46,7 +46,7 @@ class App:
             logging.info("Checking if history file needs initialization.")
             if not os.path.exists(self.history_file) or os.path.getsize(self.history_file) == 0:
                 logging.info("Initializing history file.")
-                self._initialize_csv_with_headers()  # Ensure we only call this when the file is missing or empty
+                self._initialize_csv_with_headers() 
             else:
                 logging.info("History file already exists and is not empty.")
             self.history_initialized = True  # Set the flag after initialization
@@ -90,7 +90,7 @@ class App:
             "subtract": self._handle_operation,
             "multiply": self._handle_operation,
             "divide": self._handle_operation,
-            "save": lambda command, name: self._save_history(command, name),  # Automatically use last_operation
+            "save": lambda command, name: self._save_history(command, name),  
             "load": self._load_history,
             "delete": self._delete_history_entry,
             "clear": self._clear_history,
@@ -157,11 +157,11 @@ class App:
             current_history = self.command_handler.load_history()
             new_index = len(current_history)
         if operation is None:
-            operation = self.last_operation  # Use the last operation if not provided
+            operation = self.last_operation 
             self.command_handler.save_history({
                 'index': new_index,  
                 'name': name,
-                'operation': operation,  # Ensure the operation is saved correctly
+                'operation': operation,  
                 'result': self.last_result,
                 })
             logging.info("History saved.")
